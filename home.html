@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Student Peer Support Platform - Home</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-bar .site-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .top-bar .user-info {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .main {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+            color: #222;
+        }
+        .hint {
+            font-size: 0.88rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        .search-row input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .search-row input:focus {
+            border-color: #4f6ef7;
+        }
+        .search-row button {
+            padding: 10px 20px;
+            background: #4f6ef7;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .search-row button:hover {
+            background: #3655e8;
+        }
+
+        .result-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px 24px;
+            display: none;
+        }
+        .result-card.show { display: block; }
+
+        .result-card .code {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .result-card .subject-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 8px;
+        }
+        .result-card .description {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .not-found {
+            color: #e53935;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .not-found.show { display: block; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <span class="site-name">📚 Student Peer Support Platform</span>
+    <span class="user-info">Welcome, user-info</span>
+</div>
+
+<div class="main">
+    <h2>Find Your Subject</h2>
+    <p class="hint">Enter the subject code to search, e.g. <strong>CMT1134</strong> or <strong>LAE1113</strong></p>
+
+    <div class="search-row">
+        <input type="text" id="searchInput" placeholder="Enter subject code..." />
+        <button onclick="search()">Search</button>
+    </div>
+
+    <div class="result-card" id="resultCard">
+        <div class="code" id="resultCode"></div>
+        <div class="subject-name" id="resultName"></div>
+        <div class="description" id="resultDesc"></div>
+    </div>
+
+    <div class="not-found" id="notFound">
+        Subject not found. Please check the code and try again.
+    </div>
+</div>
+
+<script>
+    const subjects = {
+        "CMT1134": {
+            name: "Mathematics (Foundation Semester 3)",
+            desc: "Covers topics such as precalculus, matrices, and statistics for foundation-level students in their third semester."
+        },
+        "LAE1113": {
+            name: "Academic English",
+            desc: "A language course focused on building core English skills including reading, writing, grammar, and communication."
+        },
+        "CMT1114": {
+            name: "Mathematics (Foundation Semester 1)",
+            desc: "Introduction to basic algebra, trigonometry, and number systems for foundation-level students."
+        },
+        "CMT1124": {
+            name: "Mathematics (Foundation Semester 2)",
+            desc: "Continuation of foundation mathematics, covering functions, sequences, and introductory calculus."
+        },
+        "CPP1113": {
+            name: "Preinciple of Physics",
+            desc: "Fundamentals of physic, programming logic, and problem-solving using basic algorithms."
+        }
+    };
+
+    function search() {
+        const input = document.getElementById('searchInput').value.trim().toUpperCase();
+        const resultCard = document.getElementById('resultCard');
+        const notFound = document.getElementById('notFound');
+
+        resultCard.classList.remove('show');
+        notFound.classList.remove('show');
+
+        if (!input) return;
+
+        if (subjects[input]) {
+            document.getElementById('resultCode').textContent = input;
+            document.getElementById('resultName').textContent = subjects[input].name;
+            document.getElementById('resultDesc').textContent = subjects[input].desc;
+            resultCard.classList.add('show');
+        } else {
+            notFound.classList.add('show');
+        }
+    }
+
+    document.getElementById('searchInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') search();
+    });
+</script>
+
+</body>
+</html>
