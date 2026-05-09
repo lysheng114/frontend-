@@ -4,14 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>Student Peer Support Platform - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            color: #333;
-            min-height: 100vh;
+           background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), 
+                url("bg.png") no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    min-height: 100vh;
+}
+
+.top-bar {
+    background: rgba(255, 255, 255, 0.9); 
+    backdrop-filter: blur(10px); /* 磨砂玻璃效果 */
+    border-bottom: 1px solid #ddd;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky; /* 固定在顶部 */
+    top: 0;
+    z-index: 100;
+}
         }
 
         .top-bar {
@@ -123,7 +140,7 @@
 
 <div class="main">
     <h2>Find Your Subject</h2>
-    <p class="hint">Enter the subject code to search, e.g. <strong>CMT1134</strong> or <strong>LAE1113</strong></p>
+    <p class="hint">Enter the subject code to search (eg. CMT1114)</p>
 
     <div class="search-row">
         <input type="text" id="searchInput" placeholder="Enter subject code..." />
@@ -144,20 +161,38 @@
 <script>
     const subjects = {
         "CMT1134": {
-            name: "Mathematics (Foundation Semester 3)",
+            name: '<i class="fa-solid fa-calculator"></i> Mathematics (Foundation Semester 3)',
             desc: "Covers topics such as precalculus, matrices, and statistics for foundation-level students in their third semester."
+        },"CDS1114": {
+            name: "Introduction To Digital System",
+            desc: "Introduaction to basic digital concept , logic gates and logic analysis."
+        },"LCT1113": {
+            name: "Critical Thinking",
+            desc: "Covers topics such as Argumentation, Logical Fallacies and Precision."
+        },"CCT1114": {
+            name: '<i class="fa-solid fa-laptop-code"></i> Introduction To Computing Technology',
+            desc: "Learning basic coding such as HTML and CSS and also learn how computing works and how it impacts our daily lives."
+        },"CMF1114": {
+            name: "Multimedia Fundamental",
+            desc: "Course that learn using tools such as GIMP and Audacity to develop a strong understanding of how elements are produced and managed digitally."
+        },"CSP1114": {
+            name: '<i class="fa-solid fa-laptop-code"></i> Problem Solving & Program Design',
+            desc: "Learning coding using Python and complete a project at the end of semester."
         },
         "LAE1113": {
             name: "Academic English",
             desc: "A language course focused on building core English skills including reading, writing, grammar, and communication."
         },
         "CMT1114": {
-            name: "Mathematics (Foundation Semester 1)",
+            name: '<i class="fa-solid fa-calculator"></i> Mathematics (Foundation Semester 1)',
             desc: "Introduction to basic algebra, trigonometry, and number systems for foundation-level students."
         },
         "CMT1124": {
-            name: "Mathematics (Foundation Semester 2)",
+            name: '<i class="fa-solid fa-calculator"></i> Mathematics (Foundation Semester 2)',
             desc: "Continuation of foundation mathematics, covering functions, sequences, and introductory calculus."
+        },"GNB1114": {
+            name: "Intro To Business Mangement",
+            desc: "Learning basic business concepts and have coursework at middle of the semester."
         },
         "CPP1113": {
             name: "Preinciple of Physics",
@@ -177,7 +212,7 @@
 
         if (subjects[input]) {
             document.getElementById('resultCode').textContent = input;
-            document.getElementById('resultName').textContent = subjects[input].name;
+            document.getElementById('resultName').innerHTML = subjects[input].name;
             document.getElementById('resultDesc').textContent = subjects[input].desc;
             resultCard.classList.add('show');
         } else {
